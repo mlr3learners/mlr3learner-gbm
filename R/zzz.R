@@ -12,4 +12,5 @@
 
   # add the learner to the dictionary
   x$add("classif.gbm", LearnerClassifGBM)
+  x$add("regr.gbm", LearnerRegrGBM)
 } # nocov end
