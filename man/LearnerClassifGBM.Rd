@@ -10,6 +10,6 @@
 LearnerClassifGBM
 }
 \description{
-A \link{LearnerClassif} for a classification gbm implemented in gbm::gbm()] in package \CRANpkg{gbm}.
+A \link{LearnerClassif} for a classification gbm implemented in \code{\link[gbm:gbm]{gbm::gbm()}} in package \CRANpkg{gbm}.
 }
 \keyword{datasets}
