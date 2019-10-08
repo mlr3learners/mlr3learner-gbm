@@ -4,7 +4,7 @@
 #' @format [R6::R6Class] inheriting from [LearnerClassif].
 #'
 #' @description
-#' A [LearnerClassif] for a classification gbm implemented in gbm::gbm()] in package \CRANpkg{gbm}.
+#' A [LearnerClassif] for a classification gbm implemented in [gbm::gbm()] in package \CRANpkg{gbm}.
 #'
 #' @export
 LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
@@ -37,44 +37,43 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
 
       # Set to default for predict
       if (is.null(self$param_set$values$n.tress)) {
-        self$param_set$values = list(n.trees = 100)
+        self$param_set$values$n.trees = 100
       }
 
-      pars <- self$param_set$get_values(tags = "train")
-
-      f <- task$formula()
-      data <- task$data()
+      pars = self$param_set$get_values(tags = "train")
+      f = task$formula()
+      data = task$data()
 
       if ("weights" %in% task$properties) {
         pars = insert_named(pars, list(weights = task$weights$weight))
       }
 
       if (task$properties %in% "twoclass") {
-        data[[task$target_names]] <- as.numeric(data[[task$target_names]] == task$positive)
+        data[[task$target_names]] = as.numeric(data[[task$target_names]] == task$positive)
       }
 
       invoke(gbm::gbm, formula = f, data = data, .args = pars)
     },
 
     predict_internal = function(task) {
-      pars <- self$param_set$get_values(tags = "predict")
-      newdata <- task$data(cols = task$feature_names)
+      pars = self$param_set$get_values(tags = "predict")
+      newdata = task$data(cols = task$feature_names)
 
-      p <- invoke(predict, self$model, newdata = newdata, type = "response", .args = pars)
+      p = invoke(predict, self$model, newdata = newdata, type = "response", .args = pars)
 
       if (self$predict_type == "response") {
         if (task$properties %in% "twoclass") {
-          p <- as.factor(ifelse(p > 0.5, task$positive, task$negative))
+          p = as.factor(ifelse(p > 0.5, task$positive, task$negative))
           PredictionClassif$new(task = task, response = p)
         } else {
-          ind <- apply(p, 1, which.max)
-          cns <- colnames(p)
+          ind = apply(p, 1, which.max)
+          cns = colnames(p)
           PredictionClassif$new(task = task, response = factor(cns[ind], levels = cns))
         }
       } else {
         if (task$properties %in% "twoclass") {
-          p <- matrix(c(p, 1 - p), ncol = 2L, nrow = length(p))
-          colnames(p) <- task$class_names
+          p = matrix(c(p, 1 - p), ncol = 2L, nrow = length(p))
+          colnames(p) = task$class_names
           PredictionClassif$new(task = task, prob = p)
         } else {
           PredictionClassif$new(task = task, prob = p[, , 1L])
