@@ -5,11 +5,11 @@
 \alias{LearnerClassifGBM}
 \alias{mlr_learners_classif.gbm}
 \title{Classification gbm Learner}
-\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link{LearnerClassif}.}
+\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:LearnerClassif]{mlr3::LearnerClassif}.}
 \usage{
 LearnerClassifGBM
 }
 \description{
-A \link{LearnerClassif} for a classification gbm implemented in \code{\link[gbm:gbm]{gbm::gbm()}} in package \CRANpkg{gbm}.
+A \link[mlr3:LearnerClassif]{mlr3::LearnerClassif} for a classification gbm implemented in \code{\link[gbm:gbm]{gbm::gbm()}} in package \CRANpkg{gbm}.
 }
 \keyword{datasets}

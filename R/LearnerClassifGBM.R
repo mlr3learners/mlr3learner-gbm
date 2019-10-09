@@ -1,10 +1,10 @@
 #' @title Classification gbm Learner
 #'
 #' @aliases mlr_learners_classif.gbm
-#' @format [R6::R6Class] inheriting from [LearnerClassif].
+#' @format [R6::R6Class] inheriting from [mlr3::LearnerClassif].
 #'
 #' @description
-#' A [LearnerClassif] for a classification gbm implemented in [gbm::gbm()] in package \CRANpkg{gbm}.
+#' A [mlr3::LearnerClassif] for a classification gbm implemented in [gbm::gbm()] in package \CRANpkg{gbm}.
 #'
 #' @export
 LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
