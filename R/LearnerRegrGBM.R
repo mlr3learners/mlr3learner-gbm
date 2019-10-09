@@ -1,10 +1,10 @@
 #' @title Regression gbm Learner
 #'
 #' @aliases mlr_learners_regr.gbm
-#' @format [R6::R6Class] inheriting from [mlr3::RegrClassif].
+#' @format [R6::R6Class] inheriting from [mlr3::LearnerRegr].
 #'
 #' @description
-#' A [mlr3::RegrClassif] for a classification gbm implemented in [gbm::gbm()] in package \CRANpkg{gbm}.
+#' A [mlr3::LearnerRegr] for a classification gbm implemented in [gbm::gbm()] in package \CRANpkg{gbm}.
 #'
 #' @export
 LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
