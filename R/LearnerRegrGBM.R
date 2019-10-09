@@ -13,7 +13,7 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
       ps = ParamSet$new(
         params = list(
           ParamFct$new(id = "distribution", default = "gaussian", levels = c("gaussian", "laplace", "poisson", "tdist", "quantile"), tags = "train"),
-          ParamInt$new(id = "n.trees", default = 100L, lower = 1L, tags = c("train", "predict")),
+          ParamInt$new(id = "n.trees", default = 100L, lower = 1L, tags = c("train", "predict", "importance")),
           ParamInt$new(id = "interaction.depth", default = 1L, lower = 1L, tags = "train"),
           ParamInt$new(id = "n.minobsinnode", default = 10L, lower = 1L, tags = "train"),
           ParamDbl$new(id = "shrinkage", default = 0.001, lower = 0, tags = "train"),
@@ -30,7 +30,7 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
         feature_types = c("integer", "numeric", "factor", "ordered"),
         predict_types = "response",
         param_set = ps,
-        properties = "weights"
+        properties = c("weights", "importance")
       )
     },
 
@@ -65,6 +65,16 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
 
       p = invoke(predict, self$model, newdata = newdata, .args = pars)
       PredictionRegr$new(task = task, response = p)
+    },
+
+    importance = function() {
+      if (is.null(self$model)) {
+        stop("No model stored")
+      }
+      pars = self$param_set$get_values(tags = "importance")
+
+      imp = invoke(gbm::relative.influence, self$model, .args = pars)
+      sort(imp, decreasing = TRUE)
     }
   )
 )

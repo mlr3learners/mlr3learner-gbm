@@ -13,7 +13,7 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
       ps = ParamSet$new(
         params = list(
           ParamFct$new(id = "distribution", default = "bernoulli", levels = c("bernoulli", "adaboost", "huberized", "multinomial"), tags = "train"),
-          ParamInt$new(id = "n.trees", default = 100L, lower = 1L, tags = c("train", "predict")),
+          ParamInt$new(id = "n.trees", default = 100L, lower = 1L, tags = c("train", "predict", "importance")),
           ParamInt$new(id = "interaction.depth", default = 1L, lower = 1L, tags = "train"),
           ParamInt$new(id = "n.minobsinnode", default = 10L, lower = 1L, tags = "train"),
           ParamDbl$new(id = "shrinkage", default = 0.001, lower = 0, tags = "train"),
@@ -29,7 +29,7 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
         feature_types = c("integer", "numeric", "factor", "ordered"),
         predict_types = c("response", "prob"),
         param_set = ps,
-        properties = c("weights", "twoclass", "multiclass")
+        properties = c("weights", "twoclass", "multiclass", "importance")
       )
     },
 
@@ -79,6 +79,16 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
           PredictionClassif$new(task = task, prob = p[, , 1L])
         }
       }
+    },
+
+    importance = function() {
+      if (is.null(self$model)) {
+        stop("No model stored")
+      }
+      pars = self$param_set$get_values(tags = "importance")
+
+      imp = invoke(gbm::relative.influence, self$model, .args = pars)
+      sort(imp, decreasing = TRUE)
     }
   )
 )
