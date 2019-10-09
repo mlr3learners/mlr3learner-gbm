@@ -30,7 +30,7 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
         feature_types = c("integer", "numeric", "factor", "ordered"),
         predict_types = "response",
         param_set = ps,
-        properties = c("weights", "importance")
+        properties = c("weights", "importance", "missings")
       )
     },
 

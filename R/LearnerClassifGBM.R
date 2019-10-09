@@ -29,7 +29,7 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
         feature_types = c("integer", "numeric", "factor", "ordered"),
         predict_types = c("response", "prob"),
         param_set = ps,
-        properties = c("weights", "twoclass", "multiclass", "importance")
+        properties = c("weights", "twoclass", "multiclass", "importance", "missings")
       )
     },
 
