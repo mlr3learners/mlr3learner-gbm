@@ -26,7 +26,7 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
       super$initialize(
         id = "classif.gbm",
         packages = "gbm",
-        feature_types = c("integer", "numeric", "character", "factor", "ordered"),
+        feature_types = c("integer", "numeric", "factor", "ordered"),
         predict_types = c("response", "prob"),
         param_set = ps,
         properties = c("weights", "twoclass", "multiclass")
