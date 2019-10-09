@@ -5,7 +5,7 @@
 #'
 #' @description
 #' A [mlr3::RegrClassif] for a classification gbm implemented in [gbm::gbm()] in package \CRANpkg{gbm}.
-#']
+#'
 #' @export
 LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
   public = list(
@@ -45,8 +45,8 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
       f = task$formula()
       data = task$data()
 
-      if(!is.null(pars$distribution)) {
-        if(pars$distribution == "quantile") {
+      if (!is.null(pars$distribution)) {
+        if (pars$distribution == "quantile") {
           alpha = ifelse(is.null(pars$alpha), 0.5, pars$alpha)
           pars$distribution = list(name = "quantile", alpha = alpha)
         }

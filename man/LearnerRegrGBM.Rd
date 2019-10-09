@@ -11,6 +11,5 @@ LearnerRegrGBM
 }
 \description{
 A \link[mlr3:RegrClassif]{mlr3::RegrClassif} for a classification gbm implemented in \code{\link[gbm:gbm]{gbm::gbm()}} in package \CRANpkg{gbm}.
-]
 }
 \keyword{datasets}
