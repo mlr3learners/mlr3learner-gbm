@@ -12,7 +12,7 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
     initialize = function() {
       ps = ParamSet$new(
         params = list(
-          ParamFct$new(id = "distribution", default = c("bernoulli"), levels = c("bernoulli", "adaboost", "huberized", "multinomial"), tags = "train"),
+          ParamFct$new(id = "distribution", default = "bernoulli", levels = c("bernoulli", "adaboost", "huberized", "multinomial"), tags = "train"),
           ParamInt$new(id = "n.trees", default = 100L, lower = 1L, tags = c("train", "predict")),
           ParamInt$new(id = "interaction.depth", default = 1L, lower = 1L, tags = "train"),
           ParamInt$new(id = "n.minobsinnode", default = 10L, lower = 1L, tags = "train"),

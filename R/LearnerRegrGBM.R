@@ -12,7 +12,7 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
     initialize = function() {
       ps = ParamSet$new(
         params = list(
-          ParamFct$new(id = "distribution", default = c("gaussian"), levels = c("gaussian", "laplace", "poisson", "tdist", "quantile"), tags = "train"),
+          ParamFct$new(id = "distribution", default = "gaussian", levels = c("gaussian", "laplace", "poisson", "tdist", "quantile"), tags = "train"),
           ParamInt$new(id = "n.trees", default = 100L, lower = 1L, tags = c("train", "predict")),
           ParamInt$new(id = "interaction.depth", default = 1L, lower = 1L, tags = "train"),
           ParamInt$new(id = "n.minobsinnode", default = 10L, lower = 1L, tags = "train"),
@@ -28,9 +28,9 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
         id = "regr.gbm",
         packages = "gbm",
         feature_types = c("integer", "numeric", "factor", "ordered"),
-        predict_types = c("response"),
+        predict_types = "response",
         param_set = ps,
-        properties = c("weights")
+        properties = "weights"
       )
     },
 
