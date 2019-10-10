@@ -1,4 +1,4 @@
 library(testthat)
-library(mlr3learnergbm)
+library(mlr3learners.gbm)
 
-test_check("mlr3learnergbm")
+test_check("mlr3learners.gbm")

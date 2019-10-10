@@ -3,8 +3,8 @@
 
 This package adds `gbm` from the `gbm` package to `mlr3`.
 
-Install the latest version of `mlr3learner-gbm` with:
+Install the latest version of `mlr3learners.gbm` with:
 
 ```r
-remotes::install_github("mlr3learners/mlr3learner-gbm")
+remotes::install_github("mlr3learners/mlr3learners.gbm")
 ```
