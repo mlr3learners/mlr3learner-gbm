@@ -20,9 +20,10 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
           ParamDbl$new(id = "bag.fraction", default = 0.5, lower = 0, upper = 1, tags = "train"),
           ParamDbl$new(id = "train.fraction", default = 1, lower = 0, upper = 1, tags = "train"),
           ParamInt$new(id = "cv.folds", default = 0L, tags = "train"),
-          ParamDbl$new(id = "alpha", default = 0.5, lower = 0, upper = 1, tags = "train") # Only for distribution quantile
+          ParamDbl$new(id = "alpha", default = 0.5, lower = 0, upper = 1, tags = "train")
         )
       )
+      ps$add_dep("alpha", "distribution", CondEqual$new("quantile"))
 
       super$initialize(
         id = "regr.gbm",
