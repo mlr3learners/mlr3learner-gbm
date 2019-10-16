@@ -19,7 +19,10 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
           ParamDbl$new(id = "shrinkage", default = 0.001, lower = 0, tags = "train"),
           ParamDbl$new(id = "bag.fraction", default = 0.5, lower = 0, upper = 1, tags = "train"),
           ParamDbl$new(id = "train.fraction", default = 1, lower = 0, upper = 1, tags = "train"),
-          ParamInt$new(id = "cv.folds", default = 0L, tags = "train")
+          ParamInt$new(id = "cv.folds", default = 0L, tags = "train"),
+          ParamLgl$new(id = "keep.data", default = TRUE, tags = "train"),
+          ParamLgl$new(id = "verbose", default = FALSE, tags = "train"),
+          ParamInt$new(id = "n.cores", default = 1, tags = "train")
         )
       )
 
