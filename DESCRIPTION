@@ -12,7 +12,6 @@ License: LGPL-3
 Depends:
     R (>= 3.1.0)
 Imports:
-    checkmate,
     data.table,
     mlr3,
     mlr3misc,
@@ -21,12 +20,8 @@ Imports:
     gbm
 Suggests:
     testthat,
-    rmarkdown
-Remotes:
-    mlr-org/mlr3,
-    mlr-org/mlr3misc,
-    mlr-org/paradox
+    checkmate
 Encoding: UTF-8
 NeedsCompilation: no
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
