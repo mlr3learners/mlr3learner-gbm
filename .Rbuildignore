@@ -13,3 +13,6 @@
 ^pkgdown$
 ^renv$
 ^renv\.lock$
+^\.ccache$
+^\.github$
+^clang-.*
