@@ -1,7 +1,10 @@
 # mlr3learner-gbm
-[![Build Status](https://travis-ci.org/mlr3learners/mlr3learner-gbm.svg?branch=master)](https://travis-ci.org//mlr3learners/mlr3learner-gbm)
+<!-- badges: start -->
+[![R CMD Check via {tic}](https://img.shields.io/github/workflow/status/mlr3learners/mlr3learners.gbm/R%20CMD%20Check%20via%20%7Btic%7D?logo=github&label=R%20CMD%20Check%20via%20{tic}&style=flat-square)](https://github.com/mlr3learners/mlr3learners.gbm/actions)
+[![StackOverflow](https://img.shields.io/badge/stackoverflow-mlr3-orange.svg)](https://stackoverflow.com/questions/tagged/mlr3)
+<!-- badges: end -->
 
-This package adds `gbm` from the `gbm` package to `mlr3`.
+Adds `gbm()` from the `{gbm}` package to `{mlr3}`.
 
 Install the latest version of `mlr3learners.gbm` with:
 
