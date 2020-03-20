@@ -1,14 +1,22 @@
-#' @title Regression gbm Learner
+#' @title Regression Gradient Boosting Machine Learner
 #'
-#' @aliases mlr_learners_regr.gbm
-#' @format [R6::R6Class] inheriting from [mlr3::LearnerRegr].
+#' @name mlr_learners_regr.gbm
 #'
 #' @description
-#' A [mlr3::LearnerRegr] for a classification gbm implemented in [gbm::gbm()] in package \CRANpkg{gbm}.
+#' Regression gradient boosting machine models.
+#' Calls [gbm::gbm()] from package \CRANpkg{gbm}.
+#'
+#' @templateVar id regr.gbm
+#' @template section_dictionary_learner
 #'
 #' @export
+#' @template seealso_learner
+#' @template example
 LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
   public = list(
+
+    #' @description
+    #' Creates a new instance of this [R6][R6::R6Class] class.
     initialize = function() {
       ps = ParamSet$new(
         params = list(
@@ -26,8 +34,7 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
           ParamInt$new(id = "n.cores", default = 1, tags = "train") # Set to 1 to suppress parallelization by the package
         )
       )
-      ps$values = list(keep.data = FALSE,
-                       n.cores = 1)
+      ps$values = list(keep.data = FALSE, n.cores = 1)
 
       ps$add_dep("alpha", "distribution", CondEqual$new("quantile"))
 
@@ -37,11 +44,29 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
         feature_types = c("integer", "numeric", "factor", "ordered"),
         predict_types = "response",
         param_set = ps,
-        properties = c("weights", "importance", "missings")
+        properties = c("weights", "importance", "missings"),
+        man = "mlr3learners.gbm::mlr_learners_regr.gbm"
       )
     },
 
-    train_internal = function(task) {
+    #' @description
+    #' The importance scores are extracted by `gbm::relative.influence()` from
+    #' the model.
+    #'
+    #' @return Named `numeric()`.
+    importance = function() {
+      if (is.null(self$model)) {
+        stop("No model stored")
+      }
+      pars = self$param_set$get_values(tags = "importance")
+
+      imp = invoke(gbm::relative.influence, self$model, .args = pars)
+      sort(imp, decreasing = TRUE)
+    }
+    ),
+  private = list(
+
+    .train = function(task) {
 
       # Set to default for predict
       if (is.null(self$param_set$values$n.tress)) {
@@ -66,22 +91,12 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
       invoke(gbm::gbm, formula = f, data = data, .args = pars)
     },
 
-    predict_internal = function(task) {
+    .predict = function(task) {
       pars = self$param_set$get_values(tags = "predict")
       newdata = task$data(cols = task$feature_names)
 
       p = invoke(predict, self$model, newdata = newdata, .args = pars)
       PredictionRegr$new(task = task, response = p)
-    },
-
-    importance = function() {
-      if (is.null(self$model)) {
-        stop("No model stored")
-      }
-      pars = self$param_set$get_values(tags = "importance")
-
-      imp = invoke(gbm::relative.influence, self$model, .args = pars)
-      sort(imp, decreasing = TRUE)
     }
   )
 )
