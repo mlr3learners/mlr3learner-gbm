@@ -44,7 +44,7 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
         properties = c("weights", "twoclass", "multiclass", "importance", "missings"),
         man = "mlr3learners.gbm::mlr_learners_regr.gbm"
       )
-      },
+    },
 
     #' @description
     #' The importance scores are extracted by `gbm::relative.influence()` from
@@ -60,9 +60,10 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
       imp = invoke(gbm::relative.influence, self$model, .args = pars)
       sort(imp, decreasing = TRUE)
     }
-    ),
+  ),
 
-    private = list(
+  private = list(
+
     .train = function(task) {
 
       # Set to default for predict

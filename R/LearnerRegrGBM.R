@@ -63,7 +63,7 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
       imp = invoke(gbm::relative.influence, self$model, .args = pars)
       sort(imp, decreasing = TRUE)
     }
-    ),
+  ),
   private = list(
 
     .train = function(task) {
