@@ -20,17 +20,27 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
     initialize = function() {
       ps = ParamSet$new(
         params = list(
-          ParamFct$new(id = "distribution", default = "bernoulli", levels = c("bernoulli", "adaboost", "huberized", "multinomial"), tags = "train"),
-          ParamInt$new(id = "n.trees", default = 100L, lower = 1L, tags = c("train", "predict", "importance")),
-          ParamInt$new(id = "interaction.depth", default = 1L, lower = 1L, tags = "train"),
-          ParamInt$new(id = "n.minobsinnode", default = 10L, lower = 1L, tags = "train"),
-          ParamDbl$new(id = "shrinkage", default = 0.001, lower = 0, tags = "train"),
-          ParamDbl$new(id = "bag.fraction", default = 0.5, lower = 0, upper = 1, tags = "train"),
-          ParamDbl$new(id = "train.fraction", default = 1, lower = 0, upper = 1, tags = "train"),
+          ParamFct$new(id = "distribution", default = "bernoulli",
+            levels = c("bernoulli", "adaboost", "huberized", "multinomial"),
+            tags = "train"),
+          ParamInt$new(id = "n.trees", default = 100L, lower = 1L,
+            tags = c("train", "predict", "importance")),
+          ParamInt$new(id = "interaction.depth", default = 1L, lower = 1L,
+            tags = "train"),
+          ParamInt$new(id = "n.minobsinnode", default = 10L, lower = 1L,
+            tags = "train"),
+          ParamDbl$new(id = "shrinkage", default = 0.001, lower = 0,
+            tags = "train"),
+          ParamDbl$new(id = "bag.fraction", default = 0.5, lower = 0, upper = 1,
+            tags = "train"),
+          ParamDbl$new(id = "train.fraction", default = 1, lower = 0, upper = 1,
+            tags = "train"),
           ParamInt$new(id = "cv.folds", default = 0L, tags = "train"),
-          ParamLgl$new(id = "keep.data", default = FALSE, tags = "train"), # Set to FALSE to reduce memory requirements
+          ParamLgl$new(id = "keep.data", default = FALSE, tags = "train"),
+          # Set to FALSE to reduce memory requirements
           ParamLgl$new(id = "verbose", default = FALSE, tags = "train"),
-          ParamInt$new(id = "n.cores", default = 1, tags = "train") # Set to 1 to suppress parallelization by the package
+          ParamInt$new(id = "n.cores", default = 1, tags = "train")
+          # Set to 1 to suppress parallelization by the package
         )
       )
       ps$values = list(keep.data = FALSE, n.cores = 1)
@@ -41,7 +51,8 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
         feature_types = c("integer", "numeric", "factor", "ordered"),
         predict_types = c("response", "prob"),
         param_set = ps,
-        properties = c("weights", "twoclass", "multiclass", "importance", "missings"),
+        properties = c("weights", "twoclass", "multiclass", "importance",
+          "missings"),
         man = "mlr3learners.gbm::mlr_learners_regr.gbm"
       )
     },
@@ -63,7 +74,6 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
   ),
 
   private = list(
-
     .train = function(task) {
 
       # Set to default for predict
@@ -80,7 +90,8 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
       }
 
       if (task$properties %in% "twoclass") {
-        data[[task$target_names]] = as.numeric(data[[task$target_names]] == task$positive)
+        data[[task$target_names]] =
+          as.numeric(data[[task$target_names]] == task$positive)
       }
 
       invoke(gbm::gbm, formula = f, data = data, .args = pars)
@@ -90,7 +101,8 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
       pars = self$param_set$get_values(tags = "predict")
       newdata = task$data(cols = task$feature_names)
 
-      p = invoke(predict, self$model, newdata = newdata, type = "response", .args = pars)
+      p = invoke(predict, self$model, newdata = newdata, type = "response",
+        .args = pars)
 
       if (self$predict_type == "response") {
         if (task$properties %in% "twoclass") {
@@ -99,7 +111,8 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
         } else {
           ind = apply(p, 1, which.max)
           cns = colnames(p)
-          PredictionClassif$new(task = task, response = factor(cns[ind], levels = cns))
+          PredictionClassif$new(task = task,
+            response = factor(cns[ind], levels = cns))
         }
       } else {
         if (task$properties %in% "twoclass") {

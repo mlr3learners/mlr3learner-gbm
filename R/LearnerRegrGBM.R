@@ -20,18 +20,29 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM", inherit = LearnerRegr,
     initialize = function() {
       ps = ParamSet$new(
         params = list(
-          ParamFct$new(id = "distribution", default = "gaussian", levels = c("gaussian", "laplace", "poisson", "tdist", "quantile"), tags = "train"),
-          ParamInt$new(id = "n.trees", default = 100L, lower = 1L, tags = c("train", "predict", "importance")),
-          ParamInt$new(id = "interaction.depth", default = 1L, lower = 1L, tags = "train"),
-          ParamInt$new(id = "n.minobsinnode", default = 10L, lower = 1L, tags = "train"),
-          ParamDbl$new(id = "shrinkage", default = 0.001, lower = 0, tags = "train"),
-          ParamDbl$new(id = "bag.fraction", default = 0.5, lower = 0, upper = 1, tags = "train"),
-          ParamDbl$new(id = "train.fraction", default = 1, lower = 0, upper = 1, tags = "train"),
+          ParamFct$new(id = "distribution", default = "gaussian",
+            levels = c("gaussian", "laplace", "poisson", "tdist", "quantile"),
+            tags = "train"),
+          ParamInt$new(id = "n.trees", default = 100L, lower = 1L,
+            tags = c("train", "predict", "importance")),
+          ParamInt$new(id = "interaction.depth", default = 1L, lower = 1L,
+            tags = "train"),
+          ParamInt$new(id = "n.minobsinnode", default = 10L, lower = 1L,
+            tags = "train"),
+          ParamDbl$new(id = "shrinkage", default = 0.001, lower = 0,
+            tags = "train"),
+          ParamDbl$new(id = "bag.fraction", default = 0.5, lower = 0, upper = 1,
+            tags = "train"),
+          ParamDbl$new(id = "train.fraction", default = 1, lower = 0, upper = 1,
+            tags = "train"),
           ParamInt$new(id = "cv.folds", default = 0L, tags = "train"),
-          ParamDbl$new(id = "alpha", default = 0.5, lower = 0, upper = 1, tags = "train"),
-          ParamLgl$new(id = "keep.data", default = FALSE, tags = "train"), # Set to FALSE to reduce memory requirements
+          ParamDbl$new(id = "alpha", default = 0.5, lower = 0, upper = 1,
+            tags = "train"),
+          ParamLgl$new(id = "keep.data", default = FALSE, tags = "train"),
+          # Set to FALSE to reduce memory requirements
           ParamLgl$new(id = "verbose", default = FALSE, tags = "train"),
-          ParamInt$new(id = "n.cores", default = 1, tags = "train") # Set to 1 to suppress parallelization by the package
+          ParamInt$new(id = "n.cores", default = 1, tags = "train")
+          # Set to 1 to suppress parallelization by the package
         )
       )
       ps$values = list(keep.data = FALSE, n.cores = 1)

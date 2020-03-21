@@ -9,8 +9,9 @@ Classification gradient boosting machine models.
 Calls \code{\link[gbm:gbm]{gbm::gbm()}} from package \CRANpkg{gbm}.
 }
 \section{Dictionary}{
-
-This \link{Learner} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link{mlr_learners} or with the associated sugar function \code{\link[=lrn]{lrn()}}:\preformatted{mlr_learners$get("classif.gbm")
+ This \link{Learner} can be instantiated via the
+\link[mlr3misc:Dictionary]{dictionary} \link{mlr_learners} or with the associated
+sugar function \code{\link[=lrn]{lrn()}}:\preformatted{mlr_learners$get("classif.gbm")
 lrn("classif.gbm")
 }
 }
@@ -25,7 +26,8 @@ if (requireNamespace("gbm")) {
 }
 }
 \seealso{
-\link[mlr3misc:Dictionary]{Dictionary} of \link[mlr3:Learner]{Learners}: \link[mlr3:mlr_learners]{mlr3::mlr_learners}
+\link[mlr3misc:Dictionary]{Dictionary} of \link[mlr3:Learner]{Learners}:
+\link[mlr3:mlr_learners]{mlr3::mlr_learners}
 }
 \section{Super classes}{
 \code{\link[mlr3:Learner]{mlr3::Learner}} -> \code{\link[mlr3:LearnerClassif]{mlr3::LearnerClassif}} -> \code{LearnerClassifGBM}
