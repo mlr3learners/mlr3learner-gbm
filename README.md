@@ -1,4 +1,4 @@
-# mlr3learner-gbm
+# mlr3learners.gbm
 <!-- badges: start -->
 [![R CMD Check via {tic}](https://img.shields.io/github/workflow/status/mlr3learners/mlr3learners.gbm/R%20CMD%20Check%20via%20%7Btic%7D?logo=github&label=R%20CMD%20Check%20via%20{tic}&style=flat-square)](https://github.com/mlr3learners/mlr3learners.gbm/actions)
 [![codecov](https://codecov.io/gh/mlr3learners/mlr3learners.gbm/branch/master/graph/badge.svg)](https://codecov.io/gh/mlr3learners/mlr3learners.gbm)
