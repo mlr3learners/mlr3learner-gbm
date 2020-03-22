@@ -1,7 +1,6 @@
 # History files
 .Rhistory
 .Rapp.history
-
 # Session Data files
 .RData
 # Example code in package build process
@@ -21,6 +20,8 @@
 *.utf8.md
 *.knit.md
 inst/doc
-
 .DS_Store
 .Rproj.user
+.Rbuildignore
+.Rprofile
+renv
