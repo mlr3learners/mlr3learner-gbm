@@ -12,13 +12,13 @@ Depends:
     R (>= 3.1.0)
 Imports:
     data.table,
-    gbm,
     mlr3,
     mlr3misc,
     paradox,
     R6
 Suggests:
     checkmate,
+    gbm,
     testthat
 Encoding: UTF-8
 NeedsCompilation: no

@@ -36,11 +36,12 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
           ParamDbl$new(id = "train.fraction", default = 1, lower = 0, upper = 1,
             tags = "train"),
           ParamInt$new(id = "cv.folds", default = 0L, tags = "train"),
-          ParamLgl$new(id = "keep.data", default = FALSE, tags = "train"),
           # Set to FALSE to reduce memory requirements
+          ParamLgl$new(id = "keep.data", default = FALSE, tags = "train"),
           ParamLgl$new(id = "verbose", default = FALSE, tags = "train"),
-          ParamInt$new(id = "n.cores", default = 1, tags = "train")
           # Set to 1 to suppress parallelization by the package
+          ParamInt$new(id = "n.cores", default = 1, tags = "train"),
+          ParamUty$new(id = "var.monotone", tags = "train")
         )
       )
       ps$values = list(keep.data = FALSE, n.cores = 1)
