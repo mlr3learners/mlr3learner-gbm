@@ -12,7 +12,8 @@
 #' @export
 #' @template seealso_learner
 #' @template example
-LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
+LearnerClassifGBM = R6Class("LearnerClassifGBM",
+  inherit = LearnerClassif,
   public = list(
 
     #' @description
@@ -20,20 +21,27 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
     initialize = function() {
       ps = ParamSet$new(
         params = list(
-          ParamFct$new(id = "distribution", default = "bernoulli",
+          ParamFct$new(
+            id = "distribution", default = "bernoulli",
             levels = c("bernoulli", "adaboost", "huberized", "multinomial"),
             tags = "train"),
-          ParamInt$new(id = "n.trees", default = 100L, lower = 1L,
+          ParamInt$new(
+            id = "n.trees", default = 100L, lower = 1L,
             tags = c("train", "predict", "importance")),
-          ParamInt$new(id = "interaction.depth", default = 1L, lower = 1L,
+          ParamInt$new(
+            id = "interaction.depth", default = 1L, lower = 1L,
             tags = "train"),
-          ParamInt$new(id = "n.minobsinnode", default = 10L, lower = 1L,
+          ParamInt$new(
+            id = "n.minobsinnode", default = 10L, lower = 1L,
             tags = "train"),
-          ParamDbl$new(id = "shrinkage", default = 0.001, lower = 0,
+          ParamDbl$new(
+            id = "shrinkage", default = 0.001, lower = 0,
             tags = "train"),
-          ParamDbl$new(id = "bag.fraction", default = 0.5, lower = 0, upper = 1,
+          ParamDbl$new(
+            id = "bag.fraction", default = 0.5, lower = 0, upper = 1,
             tags = "train"),
-          ParamDbl$new(id = "train.fraction", default = 1, lower = 0, upper = 1,
+          ParamDbl$new(
+            id = "train.fraction", default = 1, lower = 0, upper = 1,
             tags = "train"),
           ParamInt$new(id = "cv.folds", default = 0L, tags = "train"),
           # Set to FALSE to reduce memory requirements
@@ -52,7 +60,8 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
         feature_types = c("integer", "numeric", "factor", "ordered"),
         predict_types = c("response", "prob"),
         param_set = ps,
-        properties = c("weights", "twoclass", "multiclass", "importance",
+        properties = c(
+          "weights", "twoclass", "multiclass", "importance",
           "missings"),
         man = "mlr3learners.gbm::mlr_learners_regr.gbm"
       )
@@ -79,7 +88,7 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
 
       # Set to default for predict
       if (is.null(self$param_set$values$n.tress)) {
-        self$param_set$values$n.trees = 100
+        self$param_set$values$n.trees = 100 # nolint
       }
 
       pars = self$param_set$get_values(tags = "train")
@@ -102,7 +111,8 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
       pars = self$param_set$get_values(tags = "predict")
       newdata = task$data(cols = task$feature_names)
 
-      p = invoke(predict, self$model, newdata = newdata, type = "response",
+      p = invoke(predict, self$model,
+        newdata = newdata, type = "response",
         .args = pars)
 
       if (self$predict_type == "response") {
@@ -112,7 +122,8 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM", inherit = LearnerClassif,
         } else {
           ind = apply(p, 1, which.max)
           cns = colnames(p)
-          PredictionClassif$new(task = task,
+          PredictionClassif$new(
+            task = task,
             response = factor(cns[ind], levels = cns))
         }
       } else {
