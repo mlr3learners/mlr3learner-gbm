@@ -6,6 +6,6 @@ test_that("autotest", {
     learner$param_set$values,
     list(n.minobsinnode = 1))
   expect_learner(learner)
-  result = run_autotest(learner, exclude = ("feat_single"))
+  result = run_autotest(learner, exclude = "feat_single || weights_binary")
   expect_true(result, info = result$error)
 })
