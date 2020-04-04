@@ -90,8 +90,13 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM",
         stop("No model stored")
       }
       pars = self$param_set$get_values(tags = "importance")
+      # n.trees is required for prediction. If not set by the user, we take the
+      # default (100)
+      if (is.null(self$param_set$values$n.trees)) {
+        pars$n.trees = self$param_set$default$n.trees
+      }
 
-      imp = invoke(gbm::relative.influence, self$model, .args = pars)
+      imp = mlr3misc::invoke(gbm::relative.influence, self$model, .args = pars)
       sort(imp, decreasing = TRUE)
     }
   ),
@@ -118,6 +123,11 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM",
 
     .predict = function(task) {
       pars = self$param_set$get_values(tags = "predict")
+      # n.trees is required for prediction. If not set by the user, we take the
+      # default (100)
+      if (is.null(self$param_set$values$n.trees)) {
+         pars$n.trees = self$param_set$default$n.trees
+      }
       newdata = task$data(cols = task$feature_names)
 
       p =  mlr3misc::invoke(predict, self$model, newdata = newdata, .args = pars)
