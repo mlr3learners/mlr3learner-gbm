@@ -6,6 +6,16 @@
 #' Regression gradient boosting machine models.
 #' Calls [gbm::gbm()] from package \CRANpkg{gbm}.
 #'
+#' @section Custom mlr3 defaults:
+#' - `keep_data`:
+#'   - Actual default: TRUE
+#'   - Adjusted default: FALSE
+#'   - Reason for change: `keep_data = FALSE` saves memory during model fitting.
+#' - `n.cores`:
+#'   - Actual default: NULL
+#'   - Adjusted default: 1
+#'   - Reason for change: Suppressing the automatic internal parallelization if
+#'     `cv.folds` > 0.
 #' @templateVar id regr.gbm
 #' @template section_dictionary_learner
 #'
@@ -88,11 +98,6 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM",
   private = list(
     .train = function(task) {
 
-      # Set to default for predict
-      if (is.null(self$param_set$values$n.tress)) {
-        self$param_set$values$n.trees = 100 # nolint
-      }
-
       pars = self$param_set$get_values(tags = "train")
       f = task$formula()
       data = task$data()
@@ -108,14 +113,14 @@ LearnerRegrGBM = R6Class("LearnerRegrGBM",
         pars = insert_named(pars, list(weights = task$weights$weight))
       }
 
-      invoke(gbm::gbm, formula = f, data = data, .args = pars)
+      mlr3misc::invoke(gbm::gbm, formula = f, data = data, .args = pars)
     },
 
     .predict = function(task) {
       pars = self$param_set$get_values(tags = "predict")
       newdata = task$data(cols = task$feature_names)
 
-      p = invoke(predict, self$model, newdata = newdata, .args = pars)
+      p =  mlr3misc::invoke(predict, self$model, newdata = newdata, .args = pars)
       PredictionRegr$new(task = task, response = p)
     }
   )

@@ -8,6 +8,25 @@
 Regression gradient boosting machine models.
 Calls \code{\link[gbm:gbm]{gbm::gbm()}} from package \CRANpkg{gbm}.
 }
+\section{Custom mlr3 defaults}{
+
+\itemize{
+\item \code{keep_data}:
+\itemize{
+\item Actual default: TRUE
+\item Adjusted default: FALSE
+\item Reason for change: \code{keep_data = FALSE} saves memory during model fitting.
+}
+\item \code{n.cores}:
+\itemize{
+\item Actual default: NULL
+\item Adjusted default: 1
+\item Reason for change: Suppressing the automatic internal parallelization if
+\code{cv.folds} > 0.
+}
+}
+}
+
 \section{Dictionary}{
  This \link{Learner} can be instantiated via the
 \link[mlr3misc:Dictionary]{dictionary} \link{mlr_learners} or with the associated
