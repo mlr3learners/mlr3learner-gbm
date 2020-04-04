@@ -1,7 +1,7 @@
 # mlr3learners.gbm 0.2.0
 
+- Account for n.trees arg in predict and importance method
 - Explain changed defaults and fix n.trees bug (#3)
-
 
 # mlr3learners.gbm 0.1.0.9000
 
