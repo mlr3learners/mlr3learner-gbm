@@ -146,9 +146,11 @@ LearnerClassifGBM = R6Class("LearnerClassifGBM",
           colnames(p) = task$class_names
           PredictionClassif$new(task = task, prob = p)
         } else {
-          # previously we had `p[, , 1L]`. This results in a numeric when nrow == 1 and
-          # triggers an assertion error later. The following always return a matrix
-          # see also https://stackoverflow.com/questions/58702027/r-convert-array-to-matrix-with-one-row
+          # previously we had `p[, , 1L]`. This results in a numeric when nrow
+          # == 1 and triggers an assertion error later. The following always
+          # return a matrix see also
+          # https://stackoverflow.com/questions/58702027/
+          # r-convert-array-to-matrix-with-one-row
           p = array(c(p), dim(p)[-3], dimnames = dimnames(p)[1:2])
           PredictionClassif$new(task = task, prob = p)
         }

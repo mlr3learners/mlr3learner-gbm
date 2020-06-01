@@ -1,3 +1,7 @@
+# mlr3learners.gbm 0.2.1
+
+- Fix single observation prediction bug (#4)
+
 # mlr3learners.gbm 0.2.0.9000
 
 - Same as previous version.
