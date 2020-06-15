@@ -115,20 +115,7 @@ LearnerSurvGBM = R6Class("LearnerSurvGBM",
       # predict linear predictor
       lp = mlr3misc::invoke(predict, self$model, newdata = newdata, .args = pv)
 
-      # define WeightedDiscrete distr6 object from predicted survival function
-      # x = rep(list(data = data.frame(x = fit$unique.death.times, cdf = 0)), task$nrow)
-      # for(i in 1:task$nrow)
-      #   x[[i]]$cdf = 1 - fit$survival[i, ]
-
-      # distr = distr6::VectorDistribution$new(
-      #   distribution = "WeightedDiscrete",
-      #   params = x,
-      #   decorators = c("CoreStatistics", "ExoticStatistics"))
-
-      # crank = as.numeric(sapply(x, function(y) sum(y[,1] * c(y[,2][1], diff(y[,2])))))
-
       mlr3proba::PredictionSurv$new(task = task, crank = lp, lp = lp)
-
     }
   )
 )
