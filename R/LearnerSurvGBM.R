@@ -35,21 +35,21 @@ LearnerSurvGBM = R6Class("LearnerSurvGBM",
       ps = ParamSet$new(
         params = list(
           ParamFct$new(id = "distribution", levels = c("coxph"),
-                       default = "coxph", tags = "train"),
+            default = "coxph", tags = "train"),
           ParamInt$new(id = "n.trees", default = 100L, lower = 1L,
-                       tags = c("train", "predict")),
+            tags = c("train", "predict")),
           ParamInt$new(id = "cv.folds", default = 0L, lower = 0L,
-                       tags = "train"),
+            tags = "train"),
           ParamInt$new(id = "interaction.depth", default = 1L, lower = 1L,
-                       tags = "train"),
+            tags = "train"),
           ParamInt$new(id = "n.minobsinnode", default = 10L, lower = 1L,
-                       tags = "train"),
+            tags = "train"),
           ParamDbl$new(id = "shrinkage", default = 0.001, lower = 0,
-                       tags = "train"),
+            tags = "train"),
           ParamDbl$new(id = "bag.fraction", default = 0.5, lower = 0,
-                       upper = 1, tags = "train"),
+            upper = 1, tags = "train"),
           ParamDbl$new(id = "train.fraction", default = 1, lower = 0,
-                       upper = 1, tags = "train"),
+            upper = 1, tags = "train"),
           ParamLgl$new(id = "keep.data", default = TRUE, tags = "train"),
           ParamLgl$new(id = "verbose", default = FALSE, tags = "train"),
           ParamUty$new(id = "var.monotone", tags = "train"),
@@ -58,8 +58,8 @@ LearnerSurvGBM = R6Class("LearnerSurvGBM",
         )
       )
       ps$values = insert_named(ps$values, list(distribution = "coxph",
-                                               keep.data = FALSE,
-                                               n.cores = 1))
+        keep.data = FALSE,
+        n.cores = 1))
 
       super$initialize(
         id = "surv.gbm",
